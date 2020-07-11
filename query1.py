@@ -36,17 +36,19 @@ def output1(json_result,sorceCompany,destCompany):
         print("没有 " + sorceCompany+ " 到 " +destCompany+ " 1跳或2跳路径")
         return
     # 如果存在一跳路径，则输出
+    # list_bindings.sort()
+    index = 0
     print("**********一跳路径**********")
-    if '1hop' in list_bindings[0]:
+    if '1hop' in list_bindings[index]:
+        index = index + 1
         print(sorceCompany+ " 到 " +destCompany+ " 的一跳路径：\n"+ sorceCompany+ " --> " +destCompany)
-        if (sorceCompany,destCompany) not in edge_list:
-            edge_list.append( (sorceCompany,destCompany) )
+        edge_list.append( (sorceCompany,destCompany) )
     else:
         print("没有 " + sorceCompany+ " 到 " +destCompany+ " 的一跳路径")
     
     # 输出2跳路径
     print("**********两跳路径**********")
-    if 'x' in list_bindings[0] and '2hop' in list_bindings[0]:
+    if index < result_len and 'x' in list_bindings[index] and '2hop' in list_bindings[index]:
         print(sorceCompany+ " 到 " +destCompany+ " 的二跳路径：")
     else :
         print("没有 " + sorceCompany+ " 到 " +destCompany+ " 的二跳路径")
@@ -58,12 +60,12 @@ def output1(json_result,sorceCompany,destCompany):
         plt.show()
         return
     
-    for i in range(result_len):
-        print(sorceCompany+ " --> " +list_bindings[i]['x']['value'][len(perfix)-1:] + "-->" + list_bindings[i]['2hop']['value'][len(perfix)-1:])
-        if (sorceCompany, list_bindings[i]['x']['value'][len(perfix)-1:]) not in edge_list:
-            edge_list.append( (sorceCompany, list_bindings[i]['x']['value'][len(perfix)-1:]) )
-        if (list_bindings[i]['x']['value'][len(perfix)-1:], list_bindings[i]['2hop']['value'][len(perfix)-1:]) not in edge_list:
-            edge_list.append( (list_bindings[i]['x']['value'][len(perfix)-1:],list_bindings[i]['2hop']['value'][len(perfix)-1:]) )
+    for i in range(result_len) :
+        if index < result_len:
+            print(sorceCompany+ " --> " +list_bindings[index]['x']['value'][len(perfix)-1:] + "-->" + list_bindings[index]['2hop']['value'][len(perfix)-1:])
+            edge_list.append( (sorceCompany, list_bindings[index]['x']['value'][len(perfix)-1:]) )
+            edge_list.append( (list_bindings[index]['x']['value'][len(perfix)-1:],list_bindings[index]['2hop']['value'][len(perfix)-1:]) )
+            index = index + 1
     # print(edge_list)
     DG = nx.DiGraph()
     DG.add_edges_from(edge_list)
