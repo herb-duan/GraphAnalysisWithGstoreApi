@@ -50,6 +50,12 @@ def output1(json_result,sorceCompany,destCompany):
         print(sorceCompany+ " 到 " +destCompany+ " 的二跳路径：")
     else :
         print("没有 " + sorceCompany+ " 到 " +destCompany+ " 的二跳路径")
+        DG = nx.DiGraph()
+        DG.add_edges_from(edge_list)
+        nx.draw(DG, pos = nx.circular_layout(DG), with_labels=True, font_size=10)
+        plt.rcParams['font.sans-serif']=['SimHei']#显示中文标签 
+        plt.rcParams['axes.unicode_minus']=False
+        plt.show()
         return
     
     for i in range(result_len):
@@ -61,7 +67,7 @@ def output1(json_result,sorceCompany,destCompany):
     # print(edge_list)
     DG = nx.DiGraph()
     DG.add_edges_from(edge_list)
-    nx.draw(DG, pos = nx.circular_layout(DG), with_labels=True, font_size=5)
+    nx.draw(DG, pos = nx.circular_layout(DG), with_labels=True, font_size=10)
     plt.rcParams['font.sans-serif']=['SimHei']#显示中文标签 
     plt.rcParams['axes.unicode_minus']=False
     plt.show()

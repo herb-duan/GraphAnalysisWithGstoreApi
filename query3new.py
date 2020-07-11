@@ -135,7 +135,7 @@ def query3new():
 
     DG = nx.DiGraph()
     DG.add_edges_from(edge_list)
-    nx.draw(DG, pos = nx.circular_layout(DG), with_labels=True, font_size=5)
+    nx.draw(DG, pos = nx.circular_layout(DG), with_labels=True, font_size=10)
     plt.rcParams['font.sans-serif']=['SimHei']#显示中文标签 
     plt.rcParams['axes.unicode_minus']=False
     plt.show()
